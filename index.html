@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لقطات | فيديوهات متنوعة</title>
+<style>
+  :root{
+    --sand:#e8e0c9;
+    --sand-dark:#d8cda8;
+    --olive:#3a4a2f;
+    --olive-deep:#232e1c;
+    --blaze:#d95d2c;
+    --paper:#f6f2e4;
+    --ink:#20241a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Segoe UI', Tahoma, Arial, sans-serif;
+    line-height:1.6;
+  }
+  header{
+    background:var(--olive-deep);
+    color:var(--paper);
+    padding:64px 24px 48px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:6px solid var(--blaze);
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 40px);
+    pointer-events:none;
+  }
+  .hero{
+    max-width:900px;
+    margin:0 auto;
+    position:relative;
+  }
+  .hero .tag{
+    display:inline-block;
+    background:var(--blaze);
+    color:var(--paper);
+    font-weight:700;
+    font-size:0.8rem;
+    padding:4px 14px;
+    border-radius:2px;
+    margin-bottom:18px;
+    letter-spacing:0.5px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    font-weight:800;
+    line-height:1.15;
+    margin-bottom:16px;
+  }
+  .hero p{
+    font-size:1.1rem;
+    color:#c9d0bd;
+    max-width:60ch;
+  }
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:40px 24px 80px;
+  }
+  .filters{
+    display:flex;
+    gap:10px;
+    margin-bottom:32px;
+    flex-wrap:wrap;
+  }
+  .filter-btn{
+    background:var(--paper);
+    border:2px solid var(--olive);
+    color:var(--olive);
+    padding:8px 20px;
+    border-radius:3px;
+    font-weight:700;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:background 0.15s, color 0.15s;
+  }
+  .filter-btn:hover{
+    background:var(--olive);
+    color:var(--paper);
+  }
+  .filter-btn.active{
+    background:var(--blaze);
+    border-color:var(--blaze);
+    color:var(--paper);
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:28px;
+  }
+  .card{
+    background:var(--paper);
+    border:1px solid var(--sand-dark);
+    border-radius:4px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .card .media{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:var(--olive-deep);
+  }
+  .card .media.tiktok-media{
+    aspect-ratio:9/16;
+    max-height:560px;
+  }
+  .card .media iframe,
+  .card .media blockquote{
+    width:100%;
+    height:100%;
+    border:0;
+  }
+  .card .info{
+    padding:16px 18px 20px;
+  }
+  .card .info h3{
+    font-size:1.05rem;
+    margin-bottom:6px;
+  }
+  .card .info .meta{
+    font-size:0.85rem;
+    color:#6b6a55;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .badge{
+    display:inline-block;
+    padding:2px 9px;
+    border-radius:2px;
+    font-size:0.75rem;
+    font-weight:700;
+  }
+  .badge.youtube{background:#ff0000; color:#fff;}
+  .badge.tiktok{background:#000; color:#fff;}
+  .cat{
+    display:inline-block;
+    padding:2px 9px;
+    border-radius:2px;
+    font-size:0.75rem;
+    font-weight:700;
+    background:var(--olive);
+    color:var(--paper);
+  }
+  .cat.motivation{background:#8a5a1f;}
+  .cat.religious{background:#2f5c4a;}
+  .cat.comedy{background:#b8862e;}
+  .cat.pubg{background:var(--blaze);}
+  footer{
+    text-align:center;
+    padding:32px 24px;
+    color:#6b6a55;
+    font-size:0.9rem;
+    border-top:1px solid var(--sand-dark);
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero">
+    <span class="tag">لقطات مختارة</span>
+    <h1>كل اللي بيهمك في مكان واحد</h1>
+    <p>ببجي، كوميديا، فيديوهات تحفيزية، ومحتوى ديني — مجموعة مختارة تتجدد باستمرار.</p>
+  </div>
+</header>
+
+<main>
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">الكل</button>
+    <button class="filter-btn" data-filter="pubg">ببجي</button>
+    <button class="filter-btn" data-filter="motivation">تحفيزي</button>
+    <button class="filter-btn" data-filter="religious">ديني</button>
+    <button class="filter-btn" data-filter="comedy">كوميدي</button>
+  </div>
+
+  <div class="grid" id="videoGrid">
+    <!-- الفيديوهات هتتضاف هنا تلقائيًا من مصفوفة VIDEOS تحت -->
+  </div>
+</main>
+
+<footer>
+  ساحة المعركة — مجتمع محبي ببجي
+</footer>
+
+<script src="https://www.tiktok.com/embed.js" async></script>
+
+<script>
+/*
+  ========================================
+  ازاي تضيف فيديو جديد؟
+  ========================================
+  انسخ سطر جديد جوه مصفوفة VIDEOS تحت، واملأ البيانات:
+
+  ليوتيوب:
+  { platform: "youtube", category: "pubg", id: "VIDEO_ID_بتاع_يوتيوب", title: "عنوان الفيديو" }
+
+  الـ VIDEO_ID بتاخده من رابط الفيديو، مثال:
+  https://www.youtube.com/watch?v=XXXXXXXXXXX  ->  الـ ID هو XXXXXXXXXXX
+
+  لتيك توك:
+  { platform: "tiktok", category: "pubg", url: "رابط_فيديو_تيك_توك_الكامل", id: "VIDEO_ID_بتاع_تيك_توك", title: "عنوان الفيديو" }
+
+  الرابط الكامل مثال:
+  https://www.tiktok.com/@username/video/7123456789012345678
+  الـ ID هو آخر جزء في الرابط: 7123456789012345678
+
+  قيم category المتاحة: pubg / motivation / religious / comedy
+*/
+
+const CATEGORY_LABELS = {
+  pubg: "ببجي",
+  motivation: "تحفيزي",
+  religious: "ديني",
+  comedy: "كوميدي",
+};
+
+const VIDEOS = [
+  { platform: "youtube", category: "pubg", id: "dQw4w9WgXcQ", title: "فوز درامي في آخر دائرة" },
+  { platform: "youtube", category: "pubg", id: "jNQXAC9IVRw", title: "تصفية فريق كامل بمفرده" },
+  { platform: "tiktok", category: "pubg", url: "https://www.tiktok.com/@pubgmobile/video/7000000000000000000", id: "7000000000000000000", title: "هجوم خاطف من السطح" },
+  { platform: "youtube", category: "motivation", id: "ZXsQAXx_ao0", title: "ابدأ من جديد اليوم" },
+  { platform: "youtube", category: "religious", id: "5qap5aO4i9A", title: "تلاوة هادئة للقلب" },
+  { platform: "tiktok", category: "comedy", url: "https://www.tiktok.com/@username/video/7000000000000000001", id: "7000000000000000001", title: "موقف مضحك من الشارع" },
+];
+
+function renderVideos(filter = "all") {
+  const grid = document.getElementById("videoGrid");
+  grid.innerHTML = "";
+
+  const filtered = filter === "all" ? VIDEOS : VIDEOS.filter(v => v.category === filter);
+
+  filtered.forEach(video => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    let mediaHTML = "";
+    if (video.platform === "youtube") {
+      mediaHTML = `
+        <div class="media">
+          <iframe src="https://www.youtube.com/embed/${video.id}" allowfullscreen loading="lazy"></iframe>
+        </div>`;
+    } else {
+      mediaHTML = `
+        <div class="media tiktok-media">
+          <blockquote class="tiktok-embed" cite="${video.url}" data-video-id="${video.id}" style="max-width:100%; min-width:100%;">
+            <section></section>
+          </blockquote>
+        </div>`;
+    }
+
+    const badgeClass = video.platform === "youtube" ? "youtube" : "tiktok";
+    const badgeText = video.platform === "youtube" ? "يوتيوب" : "تيك توك";
+
+    card.innerHTML = `
+      ${mediaHTML}
+      <div class="info">
+        <h3>${video.title}</h3>
+        <div class="meta">
+          <span class="cat ${video.category}">${CATEGORY_LABELS[video.category] || video.category}</span>
+          <span class="badge ${badgeClass}">${badgeText}</span>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // إعادة تحميل ويدجت تيك توك عشان يرندر الفيديوهات الجديدة
+  if (window.tiktokEmbedLoad) {
+    window.tiktokEmbedLoad();
+  } else if (window.TikTok && window.TikTok.embedLoad) {
+    window.TikTok.embedLoad();
+  }
+}
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderVideos(btn.dataset.filter);
+  });
+});
+
+renderVideos();
+</script>
+
+</body>
+</html>
